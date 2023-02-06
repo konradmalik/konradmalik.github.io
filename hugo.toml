@@ -74,12 +74,20 @@ disableHugoGeneratorInject = false
     url  = "https://www.linkedin.com/in/konradmalik"
 
   [[params.social]]
+    name = "googlescholar"
+    url  = "https://scholar.google.com/citations?user=SXm-IR8AAAAJ"
+
+  [[params.social]]
     name = "telegram"
     url  = "https://t.me/konradmalik"
 
   [[params.social]]
     name = "twitter"
     url  = "https://twitter.com/konrad_malik"
+
+  [[params.social]]
+    name = "lastfm"
+    url  = "https://www.last.fm/user/MalikosHC"
 
 [taxonomies]
   tag      = "tags"
