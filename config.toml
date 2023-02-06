@@ -1,0 +1,87 @@
+baseurl      = "https://konradmalik.github.io"
+title        = "Hi! I'm Konrad"
+languageCode = "en-us"
+theme        = "hello-friend-ng"
+paginate     = 10
+
+buildDrafts  = false
+buildFuture  = false
+buildExpired = false
+canonifyURLs = true
+
+enableRobotsTXT = true
+enableGitInfo   = false
+enableEmoji     = true
+enableMissingTranslationPlaceholders = false
+disableRSS     = false
+disableSitemap = false
+disable404     = false
+disableHugoGeneratorInject = false
+
+[permalinks]
+  posts = "/posts/:year/:month/:title/"
+
+[author]
+  name = "Konrad Malik"
+
+[params]
+  dateform        = "Jan 2, 2006"
+  dateformShort   = "Jan 2"
+  dateformNum     = "2006-01-02"
+  dateformNumTime = "2006-01-02 15:04"
+
+  # Subtitle for home
+  homeSubtitle = "DevOps | Software Developer | Open Source Enthusiast | Linux Advocate | Aerospace Engineer"
+
+  # Set a background for the homepage
+  # backgroundImage = "assets/images/background.jpg"
+
+  # Set disableReadOtherPosts to true in order to hide the links to other posts.
+  disableReadOtherPosts = false
+
+  # Enable sharing buttons, if you like
+  enableSharingButtons = true
+
+  [params.logo]
+    logoMark     = ">"
+    logoText     = "$ cd /home/konrad"
+    logoHomeLink = "/"
+    # Set true to remove the logo cursor entirely.
+    # logoCursorDisabled = false
+
+  # [params.portrait]
+  #   path     = "/img/image.jpg"
+  #   alt      = "Portrait"
+  #   maxWidth = "50px"
+
+  # Social icons
+  [[params.social]]
+    name = "github"
+    url  = "https://github.com/konradmalik"
+
+  [[params.social]]
+    name = "gitlab"
+    url  = "https://gitlab.com/konradmalik"
+
+  [[params.social]]
+    name = "linkedin"
+    url  = "https://www.linkedin.com/in/konradmalik"
+
+  [[params.social]]
+    name = "telegram"
+    url  = "https://t.me/konradmalik"
+
+  [[params.social]]
+    name = "twitter"
+    url  = "https://twitter.com/konrad_malik"
+
+[taxonomies]
+  tag      = "tags"
+  category = "categories"
+  series   = "series"
+
+  # And you can even create generic menu
+  # [[menu.main]]
+  #   identifier = "blog"
+  #   name       = "Blog"
+  #   url        = "/posts"
