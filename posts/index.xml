@@ -1,0 +1,25 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Hi! I'm Konrad</title><link>https://konradmalik.com/posts/</link><description>Recent content in Posts on Hi! I'm Konrad</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>&lt;a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0&lt;/a></copyright><lastBuildDate>Wed, 08 Feb 2023 21:31:50 +0100</lastBuildDate><atom:link href="https://konradmalik.com/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Hello world</title><link>https://konradmalik.com/posts/2023/02/hello-world/</link><pubDate>Wed, 08 Feb 2023 21:31:50 +0100</pubDate><guid>https://konradmalik.com/posts/2023/02/hello-world/</guid><description>Hello there!
+I&amp;rsquo;m Konrad, and the first of my New Year&amp;rsquo;s resolutions was to resurrect and refresh my personal page.
+Since this is now done, we can go straight into my second resolution which is: start a blog.
+Why? Even though I don&amp;rsquo;t plan on publishing/promoting this anywhere (which means barely anyone will ever read this), I believe that there is something in translating your ideas, problems, and their solutions, etc.</description><content type="html"><![CDATA[<p>Hello there!</p>
+<p>I&rsquo;m Konrad, and the first of my New Year&rsquo;s resolutions was to resurrect and refresh my personal page.</p>
+<p>Since this is now done, we can go straight into my second resolution which is: <strong>start a blog</strong>.</p>
+<p>Why? Even though I don&rsquo;t plan on publishing/promoting this anywhere (which means barely anyone will ever read this),
+I believe that there is something in translating your ideas, problems, and their solutions, etc. on &ldquo;paper&rdquo;.
+It helps me to structure my thoughts and maybe will help you, dear reader, when you&rsquo;ll find here something useful
+or something you didn&rsquo;t know. Who knows.</p>
+<p>So what I&rsquo;ll be writing about? Various things, but most often posts will be technical and touching:</p>
+<ul>
+<li>programming</li>
+<li>all the DevOps stuff</li>
+<li>Linux (I currently use Nix and manage my full system configuration <a href="https://github.com/konradmalik/dotfiles">here</a>,
+so for sure expect something of that)</li>
+<li>interesting open-source software I found useful and wanted to share</li>
+<li>occasionally I may write about my other hobbies such as cycling, games, books&hellip; hell, maybe even cooking.</li>
+</ul>
+<p>Posts will be relatively short I think. I don&rsquo;t put any bounds, neither I want to restrict/force myself to write
+less/more, but I think I&rsquo;ll naturally go into a short, concise text. I don&rsquo;t plan to publish in any specific
+intervals. Posts will appear irregularly. There will be months without anything new, but there may be
+weeks where I&rsquo;ll post multiple new texts.</p>
+<p>So let&rsquo;s get rolling. I&rsquo;m sure it won&rsquo;t be a wasted time for any of us!</p>
+]]></content></item></channel></rss>
