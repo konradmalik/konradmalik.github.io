@@ -1,3 +1,4 @@
 .hugo*
+.vale
 .direnv
 _gen

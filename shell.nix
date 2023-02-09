@@ -13,5 +13,6 @@ pkgs.mkShell {
     nixpkgs-fmt
     #
     hugo
+    vale
   ];
 }
