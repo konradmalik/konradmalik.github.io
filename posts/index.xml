@@ -1,4 +1,110 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Hi! I'm Konrad</title><link>https://konradmalik.com/posts/</link><description>Recent content in Posts on Hi! I'm Konrad</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>&lt;a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0&lt;/a></copyright><lastBuildDate>Wed, 08 Feb 2023 21:31:50 +0100</lastBuildDate><atom:link href="https://konradmalik.com/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Hello world</title><link>https://konradmalik.com/posts/2023/02/hello-world/</link><pubDate>Wed, 08 Feb 2023 21:31:50 +0100</pubDate><guid>https://konradmalik.com/posts/2023/02/hello-world/</guid><description>Hello there!
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Hi! I'm Konrad</title><link>https://konradmalik.com/posts/</link><description>Recent content in Posts on Hi! I'm Konrad</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>&lt;a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0&lt;/a></copyright><lastBuildDate>Mon, 13 Feb 2023 22:57:50 +0100</lastBuildDate><atom:link href="https://konradmalik.com/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>sops-nix: simple secrets management for Nix</title><link>https://konradmalik.com/posts/2023/02/sops-nix-simple-secrets-management-for-nix/</link><pubDate>Mon, 13 Feb 2023 22:57:50 +0100</pubDate><guid>https://konradmalik.com/posts/2023/02/sops-nix-simple-secrets-management-for-nix/</guid><description>Secrets in git There are many ways to manage secrets in git repositories. Some examples in no particular order:
+git-crypt sops a separate private repo added as a submodule to the main one Each with its advantages and disadvantages, but all get the job done.
+When I transitioned my dotfiles to Nix flakes, I looked for a way to not only manage secrets in git but for something that would also allow me to treat secrets as a part of my Nix config, including the declarative part.</description><content type="html"><![CDATA[<h2 id="secrets-in-git">Secrets in git</h2>
+<p>There are many ways to manage secrets in git repositories. Some examples in no particular order:</p>
+<ul>
+<li><a href="https://github.com/AGWA/git-crypt">git-crypt</a></li>
+<li><a href="https://github.com/mozilla/sops">sops</a></li>
+<li>a separate private repo added as a submodule to the main one</li>
+</ul>
+<p>Each with its advantages and disadvantages, but all get the job done.</p>
+<p>When I transitioned my <a href="https://github.com/konradmalik/dotfiles">dotfiles</a> to Nix flakes, I looked for a way to not only manage secrets in git
+but for something that would also allow me to treat secrets as a part of my Nix config, including the declarative part. But let&rsquo;s start from the beginning.</p>
+<h2 id="secrets-in-nixos">Secrets in NixOS</h2>
+<p>Initially, I had three specific secrets I wanted to somehow integrate into my Nix setup:</p>
+<ul>
+<li><code>wpa_supplicant</code> config (with my WiFi passwords)</li>
+<li>my Linux login password (for fully declarative setup via NixOS)</li>
+<li>company&rsquo;s ssh config (contains IP addresses so it&rsquo;s better to not make them public)</li>
+</ul>
+<p>So I explored options.</p>
+<h3 id="private-flake">Private flake</h3>
+<p>I decided I&rsquo;ll create a private GitHub repo with a private flake which I added as input to my main flake.
+If the private flake was not available because I was on an untrusted machine, or because it was a CI/CD pipeline,
+or because someone just used my public code, then the input could just be replaced with a dummy, empty package which I happened to host in a subfolder.</p>
+<p>This worked somehow but was not great as you can probably imagine. Seemed hacky (and it was).</p>
+<h3 id="private-repo--gnu-stow">Private repo + GNU Stow</h3>
+<p>I was not happy with my private flake configuration, so I decided to not use private flake inputs, and just handle all the public-safe stuff in Nix,
+while using my private repository as a source for <a href="https://www.gnu.org/software/stow/manual/stow.html">GNU Stow</a>.</p>
+<p>This worked much better, but I still needed to manually link the appropriate files, remember to pull the repository locally on each
+machine after an important change, etc. It still was not great and seamless, and I wanted great and seamless.</p>
+<h3 id="the-nix-way">The Nix way</h3>
+<p>I thought that there must be some &ldquo;nixy&rdquo; way to solve this problem and indeed, I&rsquo;ve found a couple of projects but I settled
+on <a href="https://github.com/Mic92/sops-nix">sops-nix</a> (another good choice would be <a href="https://github.com/ryantm/agenix">agenix</a>).</p>
+<p>I&rsquo;ve been using <code>sops-nix</code> for some time already to manage my secrets on my NixOS machines
+and I love it. It&rsquo;s simple, allows to use <a href="https://github.com/FiloSottile/age">age</a> as an encryption tool (a modern GnuPG
+alternative, although targeting specific use-cases like file encryption), allows reusing your ssh keys or host ssh keys
+as encryption keys, and uses sops under the hood which I like a lot. I use <code>sops</code> at work in our GitOps flow to keep
+Kubernetes secrets directly in the git repository and automatically synchronize them to the cluster via <a href="https://github.com/fluxcd/flux2">fluxCD</a>.</p>
+<p>Firstly, I only used <code>sops-nix</code> for my NixOS stuff (it wasn&rsquo;t possible to use it on <a href="https://github.com/nix-community/home-manager">home-manager</a>-only machine
+or on <a href="https://github.com/LnL7/nix-darwin">nix-darwin</a>. That meant I used it only for <code>wpa_supplicant</code> and my Linux login password. My company ssh config was
+still lined via <code>stow</code> from my dotfiles-private repository. However, thanks to a recent <a href="https://github.com/Mic92/sops-nix/pull/268">PR</a>,
+<code>sops-nix</code> now includes a <code>home-manager</code> module, so it can be used on practically any machine with Nix installed.
+For me, it effectively means that now I can have all configurations and secrets in a single repository,
+regardless of whether it&rsquo;s system-wide stuff on NixOS, user-specific stuff on NixOS, or user-specific stuff on MacOS.</p>
+<p>With a working <code>home-manager</code> module, I could finally move the last bit (ssh config) into my main, public repository, encrypt it with sops, and automatically decrypt
+and link with <code>sops-nix</code>.</p>
+<p>An example from my <a href="https://github.com/konradmalik/dotfiles">dotfiles</a>:</p>
+<p>The secret itself. I placed it in my <code>common</code> subfolder of <code>home-manager</code> nix configs:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#75715e"># dotfiles/nix/home/konrad/common/secrets.yaml</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">ssh_configd</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">cerebre</span>: <span style="color:#ae81ff">ENC[AES256_GCM,data:u+cagDh97y8wdVAEk5R0vofy3WVRDbMojQqFjmMHPYehqPlq1ql6PITf+9RdGhl+PwpYZ5OhSdzTIHzfK+iTF7tFEOLsGgJDU/GLAkbdPiJVjAdZqbrM/ApHn1ppqNvZ7wfDjc8PJ8gQCy+svCAHKLQU0TclzgjTYg3zD805aMFdJZAtDQYkY+H8cAoycK8uOUo+kPaacPhqJGc8R/X5ITEDRpSUyG3kD/2jFjyl1/PUc0BB0KfHLADndHia9WLZND9k4hh4Q4X1nr/XFXPtWvNlhAf/6LwCPjakxcNNCnzp+UQ4yso+H66y5IZjdiKo7pzIyLutU3WuscFg3SDT4DDP6KHtF6Wvx7w9AAue6+/iPJDmEVwO8r9+PrYLN1rFy2qXAqN7seI1nMPL14AHrE4Zf0v09xdpaRubfZmEsiPMYGcvPjIIUkq9/2KfCvbubZG1Hk6vu7Sqsn3JSPGoVcBRTj0=,iv:qoLDRsx/Xy437mNk7nPnez0f7toe0nJCcYnI2khnM1M=,tag:JZeWO7nt0avc6RlfzvNl4A==,type:str]</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">sops</span>:
+</span></span></code></pre></div><p>Next, in my global, shared <code>home-manager</code> config, I set up the <code>sops-nix</code> module:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-nix" data-lang="nix"><span style="display:flex;"><span><span style="color:#75715e"># dotfiles/nix/home/konrad/common/global/default.nix</span>
+</span></span><span style="display:flex;"><span>{ config<span style="color:#f92672">,</span> pkgs<span style="color:#f92672">,</span> lib<span style="color:#f92672">,</span> inputs<span style="color:#f92672">,</span> outputs<span style="color:#f92672">,</span> <span style="color:#f92672">...</span> }:
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">inherit</span> (inputs<span style="color:#f92672">.</span>nix-colors) colorSchemes;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">inherit</span> (inputs<span style="color:#f92672">.</span>nix-colors<span style="color:#f92672">.</span>lib-contrib { <span style="color:#66d9ef">inherit</span> pkgs; }) nixWallpaperFromScheme;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  imports <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>    inputs<span style="color:#f92672">.</span>nix-colors<span style="color:#f92672">.</span>homeManagerModule
+</span></span><span style="display:flex;"><span>    inputs<span style="color:#f92672">.</span>sops-nix<span style="color:#f92672">.</span>homeManagerModules<span style="color:#f92672">.</span>sops
+</span></span><span style="display:flex;"><span><span style="color:#f92672">.</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">.</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># shared sops config</span>
+</span></span><span style="display:flex;"><span>  sops <span style="color:#960050;background-color:#1e0010">=</span> {
+</span></span><span style="display:flex;"><span>    defaultSopsFile <span style="color:#f92672">=</span> <span style="color:#e6db74">./../secrets.yaml</span>;
+</span></span><span style="display:flex;"><span>    age<span style="color:#f92672">.</span>keyFile <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>config<span style="color:#f92672">.</span>xdg<span style="color:#f92672">.</span>configHome<span style="color:#e6db74">}</span><span style="color:#e6db74">/sops/age/personal.txt&#34;</span>;
+</span></span><span style="display:flex;"><span>  };
+</span></span><span style="display:flex;"><span><span style="color:#f92672">.</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">.</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">.</span>
+</span></span></code></pre></div><p>Then in my <code>ssh-egress</code> module I defined the secret while also providing the path, where the <code>sops-nix</code> should link it.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-nix" data-lang="nix"><span style="display:flex;"><span><span style="color:#75715e"># dotfiles/nix/home/konrad/common/modules/ssh-egress.nix</span>
+</span></span><span style="display:flex;"><span>{ config<span style="color:#f92672">,</span> pkgs<span style="color:#f92672">,</span> lib<span style="color:#f92672">,</span> osConfig<span style="color:#f92672">,</span> <span style="color:#f92672">...</span> }:
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">with</span> lib;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> cfg <span style="color:#f92672">=</span> config<span style="color:#f92672">.</span>konrad<span style="color:#f92672">.</span>programs<span style="color:#f92672">.</span>ssh-egress;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">in</span> {
+</span></span><span style="display:flex;"><span>  options<span style="color:#f92672">.</span>konrad<span style="color:#f92672">.</span>programs<span style="color:#f92672">.</span>ssh-egress <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    enable <span style="color:#f92672">=</span> mkEnableOption <span style="color:#e6db74">&#34;Enables ssh-egress configuration through home-manager&#34;</span>;
+</span></span><span style="display:flex;"><span>    enableSecret <span style="color:#f92672">=</span> mkOption {
+</span></span><span style="display:flex;"><span>      type <span style="color:#f92672">=</span> types<span style="color:#f92672">.</span>bool;
+</span></span><span style="display:flex;"><span>      default <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>      description <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;whether to enable secret ssh config.d (requires sops-nix and age key)&#34;</span>;
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>  };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  config <span style="color:#f92672">=</span> mkIf cfg<span style="color:#f92672">.</span>enable (mkMerge [
+</span></span><span style="display:flex;"><span><span style="color:#f92672">.</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">.</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">.</span>
+</span></span><span style="display:flex;"><span>    (mkIf cfg<span style="color:#f92672">.</span>enableSecret {
+</span></span><span style="display:flex;"><span>      sops<span style="color:#f92672">.</span>secrets<span style="color:#f92672">.</span><span style="color:#e6db74">&#34;ssh_configd/cerebre&#34;</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>        path <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>config<span style="color:#f92672">.</span>home<span style="color:#f92672">.</span>homeDirectory<span style="color:#e6db74">}</span><span style="color:#e6db74">/.ssh/config.d/cerebre&#34;</span>;
+</span></span><span style="display:flex;"><span>      };
+</span></span><span style="display:flex;"><span>    })
+</span></span><span style="display:flex;"><span>  ]);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>And that&rsquo;s it! It works, because my main ssh config says to <code>include config.d/*</code> by default.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>I&rsquo;m happy with this setup for now. Feel free to explore my <a href="https://github.com/konradmalik/dotfiles">repository</a> for the bigger
+picture, and for the comments in README.</p>
+<p>The specific commit that introduced the changes is described here:
+<a href="https://github.com/konradmalik/dotfiles/commit/99ca739a65f9cc96da26b63d18307e2760d1b75a">99ca739</a>.</p>
+]]></content></item><item><title>Hello world</title><link>https://konradmalik.com/posts/2023/02/hello-world/</link><pubDate>Wed, 08 Feb 2023 21:31:50 +0100</pubDate><guid>https://konradmalik.com/posts/2023/02/hello-world/</guid><description>Hello there!
 I&amp;rsquo;m Konrad, and the first of my New Year&amp;rsquo;s resolutions was to resurrect and refresh my personal page.
 Since this is now done, we can go straight into my second resolution which is: start a blog.
 Why? Even though I don&amp;rsquo;t plan on publishing/promoting this anywhere (which means barely anyone will ever read this), I believe that there is something in translating your ideas, problems, and their solutions, etc.</description><content type="html"><![CDATA[<p>Hello there!</p>
