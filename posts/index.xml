@@ -19,7 +19,7 @@ but for something that would also allow me to treat secrets as a part of my Nix 
 </ul>
 <p>So I explored options.</p>
 <h3 id="private-flake">Private flake</h3>
-<p>I decided I&rsquo;ll create a private GitHub repo with a private flake which I added as input to my main flake.
+<p>I decided I&rsquo;d create a private GitHub repo with a private flake which I added as input to my main flake.
 If the private flake was not available because I was on an untrusted machine, or because it was a CI/CD pipeline,
 or because someone just used my public code, then the input could just be replaced with a dummy, empty package which I happened to host in a subfolder.</p>
 <p>This worked somehow but was not great as you can probably imagine. Seemed hacky (and it was).</p>
@@ -34,7 +34,7 @@ on <a href="https://github.com/Mic92/sops-nix">sops-nix</a> (another good choice
 <p>I&rsquo;ve been using <code>sops-nix</code> for some time already to manage my secrets on my NixOS machines
 and I love it. It&rsquo;s simple, allows to use <a href="https://github.com/FiloSottile/age">age</a> as an encryption tool (a modern GnuPG
 alternative, although targeting specific use-cases like file encryption), allows reusing your ssh keys or host ssh keys
-as encryption keys, and uses sops under the hood which I like a lot. I use <code>sops</code> at work in our GitOps flow to keep
+as encryption keys, and uses <code>sops</code> under the hood which I like a lot. I use <code>sops</code> at work in our GitOps flow to keep
 Kubernetes secrets directly in the git repository and automatically synchronize them to the cluster via <a href="https://github.com/fluxcd/flux2">fluxCD</a>.</p>
 <p>Firstly, I only used <code>sops-nix</code> for my NixOS stuff (it wasn&rsquo;t possible to use it on <a href="https://github.com/nix-community/home-manager">home-manager</a>-only machine
 or on <a href="https://github.com/LnL7/nix-darwin">nix-darwin</a>. That meant I used it only for <code>wpa_supplicant</code> and my Linux login password. My company ssh config was
@@ -42,7 +42,7 @@ still lined via <code>stow</code> from my dotfiles-private repository. However, 
 <code>sops-nix</code> now includes a <code>home-manager</code> module, so it can be used on practically any machine with Nix installed.
 For me, it effectively means that now I can have all configurations and secrets in a single repository,
 regardless of whether it&rsquo;s system-wide stuff on NixOS, user-specific stuff on NixOS, or user-specific stuff on MacOS.</p>
-<p>With a working <code>home-manager</code> module, I could finally move the last bit (ssh config) into my main, public repository, encrypt it with sops, and automatically decrypt
+<p>With a working <code>home-manager</code> module, I could finally move the last bit (ssh config) into my main, public repository, encrypt it with <code>sops</code>, and automatically decrypt
 and link with <code>sops-nix</code>.</p>
 <p>An example from my <a href="https://github.com/konradmalik/dotfiles">dotfiles</a>:</p>
 <p>The secret itself. I placed it in my <code>common</code> subfolder of <code>home-manager</code> nix configs:</p>
