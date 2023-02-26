@@ -92,6 +92,10 @@ copyright = '<a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_
     url  = "https://t.me/konradmalik"
 
   [[params.social]]
+    name = "matrix"
+    url  = "https://matrix.to/#/@konradmalik:matrix.org"
+
+  [[params.social]]
     name = "twitter"
     url  = "https://twitter.com/konrad_malik"
 
