@@ -1,21 +1,22 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Hi! I'm Konrad</title><link>https://konradmalik.com/posts/</link><description>Recent content in Posts on Hi! I'm Konrad</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>&lt;a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0&lt;/a></copyright><lastBuildDate>Tue, 28 Mar 2023 22:29:22 +0200</lastBuildDate><atom:link href="https://konradmalik.com/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Git Autosquashing</title><link>https://konradmalik.com/posts/2023/03/git-autosquashing/</link><pubDate>Tue, 28 Mar 2023 22:29:22 +0200</pubDate><guid>https://konradmalik.com/posts/2023/03/git-autosquashing/</guid><description>Git Commits Autosquashing A quick tip this time.
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Hi! I'm Konrad</title><link>https://konradmalik.com/posts/</link><description>Recent content in Posts on Hi! I'm Konrad</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>&lt;a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0&lt;/a></copyright><lastBuildDate>Tue, 28 Mar 2023 22:29:22 +0200</lastBuildDate><atom:link href="https://konradmalik.com/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Git Autosquashing</title><link>https://konradmalik.com/posts/2023/03/git-autosquashing/</link><pubDate>Tue, 28 Mar 2023 22:29:22 +0200</pubDate><guid>https://konradmalik.com/posts/2023/03/git-autosquashing/</guid><description>Autosquashing A quick tip this time.
 Sometimes you stumble on that one blog post that dramatically improves your life. Autosquashing Git Commits post from thoughtbot was such an improvement for me recently.
-The problem You&amp;rsquo;re working on a merge request. You&amp;rsquo;re committing directly to your side project repo. You&amp;rsquo;re committing your code as fast as you think. You&amp;rsquo;re in &amp;ldquo;the flow&amp;rdquo;.
-Suddenly you realize - in the commit you&amp;rsquo;ve just pushed, there is a bug/typo/simple mistake, whatever.</description><content type="html"><![CDATA[<h2 id="git-commits-autosquashing">Git Commits Autosquashing</h2>
+The problem You&amp;rsquo;re working on a merge request, pushing commit after commit. You&amp;rsquo;re in &amp;ldquo;the flow&amp;rdquo;.
+Suddenly you realize - in the commit you&amp;rsquo;ve just pushed, there is a bug/typo/simple mistake, whatever. You want to change it, but the commit is already there.</description><content type="html"><![CDATA[<h2 id="autosquashing">Autosquashing</h2>
 <p>A quick tip this time.</p>
 <p>Sometimes you stumble on that one blog post that dramatically improves your life.
 <a href="https://thoughtbot.com/blog/autosquashing-git-commits">Autosquashing Git Commits</a> post from thoughtbot was
 such an improvement for me recently.</p>
 <h3 id="the-problem">The problem</h3>
-<p>You&rsquo;re working on a merge request. You&rsquo;re committing directly to your side project repo.
-You&rsquo;re committing your code as fast as you think. You&rsquo;re in &ldquo;the flow&rdquo;.</p>
+<p>You&rsquo;re working on a merge request, pushing commit after commit. You&rsquo;re in &ldquo;the flow&rdquo;.</p>
 <p>Suddenly you realize - in the commit you&rsquo;ve just pushed, there is a bug/typo/simple mistake, whatever.
 You want to change it, but the commit is already there. Easy peasy, just <code>git commit --amend</code> it. Done.</p>
 <p>But&hellip; what if you committed <code>A</code>, then committed <code>B</code>, but while working on <code>C</code> you&rsquo;ve found a bug that
 <code>A</code> introduced? Or a change that really should&rsquo;ve been placed along with the commit <code>A</code>?</p>
 <h3 id="the-solution">The solution</h3>
 <p>Usually, at this stage, I committed the change, then I did <code>git rebase --interactive HEAD~4</code> or something like that,
-then I moved commits around and used either <code>fixup</code> or <code>squash</code>. It does work, but it&rsquo;s not ideal. It breaks your flow. Distracts you. Of course, I could just move ahead and rebase at the very end, but I&rsquo;m sure that I&rsquo;d forget that, especially if there were more commits like that.</p>
+then I moved commits around and used either <code>fixup</code> or <code>squash</code>. It does work, but it&rsquo;s not ideal. It involves many steps, you need to manually
+rearrange the commits every single time. It&rsquo;s distracting.
+Of course, I could just move ahead and rebase at the very end, but I&rsquo;m sure that I&rsquo;d forget that, especially if there were more commits like that.</p>
 <p>Is there a better way? Sure, that&rsquo;s the whole point of this post! Actually, there are two better ways:</p>
 <ul>
 <li><code>git commit --fixup &lt;rev&gt;</code></li>
