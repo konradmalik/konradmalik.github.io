@@ -5,17 +5,17 @@ draft: false
 toc: false
 images:
 tags:
-  - dotfiles
-  - nix
+    - dotfiles
+    - nix
 ---
 
 ## Secrets in git
 
 There are many ways to manage secrets in git repositories. Some examples in no particular order:
 
-- [git-crypt](https://github.com/AGWA/git-crypt)
-- [sops](https://github.com/mozilla/sops)
-- a separate private repo added as a submodule to the main one
+-   [git-crypt](https://github.com/AGWA/git-crypt)
+-   [sops](https://github.com/mozilla/sops)
+-   a separate private repo added as a submodule to the main one
 
 Each with its advantages and disadvantages, but all get the job done.
 
@@ -26,9 +26,9 @@ but for something that would also allow me to treat secrets as a part of my Nix 
 
 Initially, I had three specific secrets I wanted to somehow integrate into my Nix setup:
 
-- `wpa_supplicant` config (with my WiFi passwords)
-- my Linux login password (for fully declarative setup via NixOS)
-- company's ssh config (contains IP addresses so it's better to not make them public)
+-   `wpa_supplicant` config (with my WiFi passwords)
+-   my Linux login password (for fully declarative setup via NixOS)
+-   company's ssh config (contains IP addresses so it's better to not make them public)
 
 So I explored options.
 
@@ -76,7 +76,7 @@ The secret itself. I placed it in my `common` subfolder of `home-manager` nix co
 ```yaml
 # dotfiles/nix/home/konrad/common/secrets.yaml
 ssh_configd:
-  cerebre: ENC[AES256_GCM,data:u+cagDh97y8wdVAEk5R0vofy3WVRDbMojQqFjmMHPYehqPlq1ql6PITf+9RdGhl+PwpYZ5OhSdzTIHzfK+iTF7tFEOLsGgJDU/GLAkbdPiJVjAdZqbrM/ApHn1ppqNvZ7wfDjc8PJ8gQCy+svCAHKLQU0TclzgjTYg3zD805aMFdJZAtDQYkY+H8cAoycK8uOUo+kPaacPhqJGc8R/X5ITEDRpSUyG3kD/2jFjyl1/PUc0BB0KfHLADndHia9WLZND9k4hh4Q4X1nr/XFXPtWvNlhAf/6LwCPjakxcNNCnzp+UQ4yso+H66y5IZjdiKo7pzIyLutU3WuscFg3SDT4DDP6KHtF6Wvx7w9AAue6+/iPJDmEVwO8r9+PrYLN1rFy2qXAqN7seI1nMPL14AHrE4Zf0v09xdpaRubfZmEsiPMYGcvPjIIUkq9/2KfCvbubZG1Hk6vu7Sqsn3JSPGoVcBRTj0=,iv:qoLDRsx/Xy437mNk7nPnez0f7toe0nJCcYnI2khnM1M=,tag:JZeWO7nt0avc6RlfzvNl4A==,type:str]
+    cerebre: ENC[AES256_GCM,data:u+cagDh97y8wdVAEk5R0vofy3WVRDbMojQqFjmMHPYehqPlq1ql6PITf+9RdGhl+PwpYZ5OhSdzTIHzfK+iTF7tFEOLsGgJDU/GLAkbdPiJVjAdZqbrM/ApHn1ppqNvZ7wfDjc8PJ8gQCy+svCAHKLQU0TclzgjTYg3zD805aMFdJZAtDQYkY+H8cAoycK8uOUo+kPaacPhqJGc8R/X5ITEDRpSUyG3kD/2jFjyl1/PUc0BB0KfHLADndHia9WLZND9k4hh4Q4X1nr/XFXPtWvNlhAf/6LwCPjakxcNNCnzp+UQ4yso+H66y5IZjdiKo7pzIyLutU3WuscFg3SDT4DDP6KHtF6Wvx7w9AAue6+/iPJDmEVwO8r9+PrYLN1rFy2qXAqN7seI1nMPL14AHrE4Zf0v09xdpaRubfZmEsiPMYGcvPjIIUkq9/2KfCvbubZG1Hk6vu7Sqsn3JSPGoVcBRTj0=,iv:qoLDRsx/Xy437mNk7nPnez0f7toe0nJCcYnI2khnM1M=,tag:JZeWO7nt0avc6RlfzvNl4A==,type:str]
 sops:
 ```
 

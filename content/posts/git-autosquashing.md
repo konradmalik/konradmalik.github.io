@@ -5,8 +5,8 @@ draft: false
 toc: false
 images:
 tags:
-  - tips
-  - git
+    - tips
+    - git
 ---
 
 ## Autosquashing
@@ -36,8 +36,8 @@ Of course, I could just move ahead and rebase at the very end, but I'm sure that
 
 Is there a better way? Sure, that's the whole point of this post! Actually, there are two better ways:
 
-- `git commit --fixup <rev>`
-- `git commit --squash <rev>`
+-   `git commit --fixup <rev>`
+-   `git commit --squash <rev>`
 
 What's that? Easy. The `fixup` one, commits your changes, but automatically creates a commit message so that it will contain `fixup! <message of rev>`. Squash works analogously, but creates `squash! <message of rev>`.
 
