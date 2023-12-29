@@ -1,119 +1,120 @@
-baseurl      = "https://konradmalik.com"
-title        = "Hi! I'm Konrad"
+baseurl = "https://konradmalik.com"
+title = "Hi! I'm Konrad"
 languageCode = "en-us"
-theme        = "hello-friend-ng"
-paginate     = 10
+theme = "hello-friend-ng"
+paginate = 10
 
 archetypeDir = "archetypes"
-contentDir   = "content"
-dataDir      = "data"
-layoutDir    = "layouts"
-publishDir   = "public"
+contentDir = "content"
+dataDir = "data"
+layoutDir = "layouts"
+publishDir = "public"
 
-buildFuture  = false
+buildFuture = false
 buildExpired = false
 canonifyURLs = true
 
 enableRobotsTXT = true
-enableGitInfo   = false
-enableEmoji     = true
+enableGitInfo = false
+enableEmoji = true
 enableMissingTranslationPlaceholders = false
-disableRSS     = false
+disableRSS = false
 disableSitemap = false
-disable404     = false
+disable404 = false
 disableHugoGeneratorInject = false
 
 copyright = '<a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a>'
 
 [permalinks]
-  posts = "/posts/:year/:month/:title/"
+posts = "/posts/:year/:month/:title/"
 
 [author]
-  name = "Konrad Malik"
+name = "Konrad Malik"
 
 [params]
-  dateform        = "Jan 2, 2006"
-  dateformShort   = "Jan 2"
-  dateformNum     = "2006-01-02"
-  dateformNumTime = "2006-01-02 15:04"
+dateform = "Jan 2, 2006"
+dateformShort = "Jan 2"
+dateformNum = "2006-01-02"
+dateformNumTime = "2006-01-02 15:04"
 
-  # Subtitle for home
-  homeSubtitle = "DevOps | Software Developer | Open Source Enthusiast | Linux Advocate | Aerospace Engineer"
+# Subtitle for home
+homeSubtitle = "DevOps | Software Developer | Open Source Enthusiast | Linux Advocate | Aerospace Engineer"
 
-  # Set a background for the homepage
-  # backgroundImage = "assets/images/background.jpg"
+# Set a background for the homepage
+# backgroundImage = "assets/images/background.jpg"
 
-  # Set disableReadOtherPosts to true in order to hide the links to other posts.
-  disableReadOtherPosts = false
+# Set disableReadOtherPosts to true in order to hide the links to other posts.
+disableReadOtherPosts = false
 
-  # Enable sharing buttons, if you like
-  enableSharingButtons = false
+# Enable sharing buttons, if you like
+enableSharingButtons = false
 
-  [params.footer]
-    trademark = true
-    rss = true
-    copyright = true
-    author = true
+[params.footer]
+trademark = true
+rss = true
+copyright = true
+author = true
 
-    topText = []
-    bottomText = [ "Powered by <a href=\"http://gohugo.io\">Hugo</a>" ]
+topText = []
+bottomText = ["Powered by <a href=\"http://gohugo.io\">Hugo</a>"]
 
-  [params.logo]
-    logoMark     = ">"
-    logoText     = "$ cd /home/konrad"
-    logoHomeLink = "/"
-    # Set true to remove the logo cursor entirely.
-    # logoCursorDisabled = false
+[params.logo]
+logoMark = ">"
+logoText = "$ cd /home/konrad"
+logoHomeLink = "/"
 
-  # [params.portrait]
-  #   path     = "/img/image.jpg"
-  #   alt      = "Portrait"
-  #   maxWidth = "50px"
+# Set true to remove the logo cursor entirely.
+# logoCursorDisabled = false
 
-  # Social icons
-  [[params.social]]
-    name = "github"
-    url  = "https://github.com/konradmalik"
+# [params.portrait]
+#   path     = "/img/image.jpg"
+#   alt      = "Portrait"
+#   maxWidth = "50px"
 
-  [[params.social]]
-    name = "gitlab"
-    url  = "https://gitlab.com/konradmalik"
+# Social icons
+[[params.social]]
+name = "github"
+url = "https://github.com/konradmalik"
 
-  [[params.social]]
-    name = "linkedin"
-    url  = "https://www.linkedin.com/in/konradmalik"
+[[params.social]]
+name = "gitlab"
+url = "https://gitlab.com/konradmalik"
 
-  [[params.social]]
-    name = "googlescholar"
-    url  = "https://scholar.google.com/citations?user=SXm-IR8AAAAJ"
+[[params.social]]
+name = "linkedin"
+url = "https://www.linkedin.com/in/konradmalik"
 
-  [[params.social]]
-    name = "telegram"
-    url  = "https://t.me/konradmalik"
+[[params.social]]
+name = "googlescholar"
+url = "https://scholar.google.com/citations?user=SXm-IR8AAAAJ"
 
-  [[params.social]]
-    name = "matrix"
-    url  = "https://matrix.to/#/@konradmalik:matrix.org"
+[[params.social]]
+name = "telegram"
+url = "https://t.me/konradmalik"
 
-  [[params.social]]
-    name = "twitter"
-    url  = "https://twitter.com/konrad_malik"
+[[params.social]]
+name = "matrix"
+url = "https://matrix.to/#/@konradmalik:matrix.org"
 
-  [[params.social]]
-    name = "lastfm"
-    url  = "https://www.last.fm/user/MalikosHC"
+[[params.social]]
+name = "twitter"
+url = "https://twitter.com/konrad_malik"
+
+[[params.social]]
+name = "lastfm"
+url = "https://www.last.fm/user/MalikosHC"
 
 [taxonomies]
-  tag      = "tags"
-  category = "categories"
-  series   = "series"
+tag = "tags"
+category = "categories"
+series = "series"
 
 [menu]
-  [[menu.main]]
-    identifier = "posts"
-    name       = "Posts"
-    url        = "posts/"
+[[menu.main]]
+identifier = "posts"
+name = "Posts"
+url = "posts/"
 
 
 [outputs]
-  home = ["HTML", "RSS"]
+home = ["HTML", "RSS"]
