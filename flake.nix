@@ -1,24 +1,12 @@
 {
-  description = "Development environment for my page";
+  description = "Personal page";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    flake-compat = {
-      url = "github:edolstra/flake-compat";
-      flake = false;
-    };
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, ... }:
+  outputs = { nixpkgs, ... }:
     let
-      mkOverlay = input: name: (final: prev: {
-        "${name}" = import input {
-          system = final.system;
-          config = final.config;
-        };
-      });
-
       forAllSystems = function:
         nixpkgs.lib.genAttrs [
           "x86_64-linux"
@@ -30,22 +18,15 @@
             function (import nixpkgs {
               inherit system;
               config.allowUnfree = true;
-              overlays = [
-                (mkOverlay nixpkgs-unstable "unstable")
-              ];
             }));
     in
     {
       devShells = forAllSystems (pkgs: {
         default = pkgs.mkShell
           {
-            name = "page-shell";
+            name = "page";
 
             packages = with pkgs; [
-              # nix
-              nil
-              nixpkgs-fmt
-              #
               hugo
               vale
             ];
