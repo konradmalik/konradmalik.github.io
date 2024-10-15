@@ -1,9 +1,24 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hi! I'm Konrad</title><link>https://konradmalik.com/</link><description>Recent content on Hi! I'm Konrad</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>&lt;a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0&lt;/a></copyright><lastBuildDate>Tue, 28 Mar 2023 22:29:22 +0200</lastBuildDate><atom:link href="https://konradmalik.com/index.xml" rel="self" type="application/rss+xml"/><item><title>Git Autosquashing</title><link>https://konradmalik.com/posts/2023/03/git-autosquashing/</link><pubDate>Tue, 28 Mar 2023 22:29:22 +0200</pubDate><guid>https://konradmalik.com/posts/2023/03/git-autosquashing/</guid><description>Autosquashing A quick tip this time.
-Sometimes you stumble on that one blog post that dramatically improves your life. Autosquashing Git Commits post from thoughtbot was such an improvement for me recently.
-The problem You&amp;rsquo;re working on a merge request, pushing commit after commit. You&amp;rsquo;re in &amp;ldquo;the flow&amp;rdquo;.
-Suddenly you realize - in the commit you&amp;rsquo;ve just pushed, there is a bug/typo/simple mistake, whatever. You want to change it, but the commit is already there.</description></item><item><title>sops-nix: simple secrets management for Nix</title><link>https://konradmalik.com/posts/2023/02/sops-nix-simple-secrets-management-for-nix/</link><pubDate>Mon, 13 Feb 2023 22:57:50 +0100</pubDate><guid>https://konradmalik.com/posts/2023/02/sops-nix-simple-secrets-management-for-nix/</guid><description>Secrets in git There are many ways to manage secrets in git repositories. Some examples in no particular order:
-git-crypt sops a separate private repo added as a submodule to the main one Each with its advantages and disadvantages, but all get the job done.
-When I transitioned my dotfiles to Nix flakes, I looked for a way to not only manage secrets in git but for something that would also allow me to treat secrets as a part of my Nix config, including the declarative part.</description></item><item><title>Hello world</title><link>https://konradmalik.com/posts/2023/02/hello-world/</link><pubDate>Wed, 08 Feb 2023 21:31:50 +0100</pubDate><guid>https://konradmalik.com/posts/2023/02/hello-world/</guid><description>Hello there!
-I&amp;rsquo;m Konrad, and the first of my New Year&amp;rsquo;s resolutions was to resurrect and refresh my personal page.
-Since this is now done, we can go straight into my second resolution which is: start a blog.
-Why? Even though I don&amp;rsquo;t plan on publishing/promoting this anywhere (which means barely anyone will ever read this), I believe that there is something in translating your ideas, problems, and their solutions, etc.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hi! I'm Konrad</title><link>https://konradmalik.com/</link><description>Recent content on Hi! I'm Konrad</description><generator>Hugo</generator><language>en-us</language><copyright>&lt;a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0&lt;/a></copyright><lastBuildDate>Tue, 28 Mar 2023 22:29:22 +0200</lastBuildDate><atom:link href="https://konradmalik.com/index.xml" rel="self" type="application/rss+xml"/><item><title>Git Autosquashing</title><link>https://konradmalik.com/posts/2023/03/git-autosquashing/</link><pubDate>Tue, 28 Mar 2023 22:29:22 +0200</pubDate><guid>https://konradmalik.com/posts/2023/03/git-autosquashing/</guid><description>&lt;h2 id="autosquashing">Autosquashing&lt;/h2>
+&lt;p>A quick tip this time.&lt;/p>
+&lt;p>Sometimes you stumble on that one blog post that dramatically improves your life.
+&lt;a href="https://thoughtbot.com/blog/autosquashing-git-commits">Autosquashing Git Commits&lt;/a> post from thoughtbot was
+such an improvement for me recently.&lt;/p>
+&lt;h3 id="the-problem">The problem&lt;/h3>
+&lt;p>You&amp;rsquo;re working on a merge request, pushing commit after commit. You&amp;rsquo;re in &amp;ldquo;the flow&amp;rdquo;.&lt;/p>
+&lt;p>Suddenly you realize - in the commit you&amp;rsquo;ve just pushed, there is a bug/typo/simple mistake, whatever.
+You want to change it, but the commit is already there. Easy peasy, just &lt;code>git commit --amend&lt;/code> it. Done.&lt;/p></description></item><item><title>sops-nix: simple secrets management for Nix</title><link>https://konradmalik.com/posts/2023/02/sops-nix-simple-secrets-management-for-nix/</link><pubDate>Mon, 13 Feb 2023 22:57:50 +0100</pubDate><guid>https://konradmalik.com/posts/2023/02/sops-nix-simple-secrets-management-for-nix/</guid><description>&lt;h2 id="secrets-in-git">Secrets in git&lt;/h2>
+&lt;p>There are many ways to manage secrets in git repositories. Some examples in no particular order:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/AGWA/git-crypt">git-crypt&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/mozilla/sops">sops&lt;/a>&lt;/li>
+&lt;li>a separate private repo added as a submodule to the main one&lt;/li>
+&lt;/ul>
+&lt;p>Each with its advantages and disadvantages, but all get the job done.&lt;/p>
+&lt;p>When I transitioned my &lt;a href="https://github.com/konradmalik/dotfiles">dotfiles&lt;/a> to Nix flakes, I looked for a way to not only manage secrets in git
+but for something that would also allow me to treat secrets as a part of my Nix config, including the declarative part. But let&amp;rsquo;s start from the beginning.&lt;/p></description></item><item><title>Hello world</title><link>https://konradmalik.com/posts/2023/02/hello-world/</link><pubDate>Wed, 08 Feb 2023 21:31:50 +0100</pubDate><guid>https://konradmalik.com/posts/2023/02/hello-world/</guid><description>&lt;p>Hello there!&lt;/p>
+&lt;p>I&amp;rsquo;m Konrad, and the first of my New Year&amp;rsquo;s resolutions was to resurrect and refresh my personal page.&lt;/p>
+&lt;p>Since this is now done, we can go straight into my second resolution which is: &lt;strong>start a blog&lt;/strong>.&lt;/p>
+&lt;p>Why? Even though I don&amp;rsquo;t plan on publishing/promoting this anywhere (which means barely anyone will ever read this),
+I believe that there is something in translating your ideas, problems, and their solutions, etc. on &amp;ldquo;paper&amp;rdquo;.
+It helps me to structure my thoughts and maybe will help you, dear reader, when you&amp;rsquo;ll find here something useful
+or something you didn&amp;rsquo;t know. Who knows.&lt;/p></description></item></channel></rss>
