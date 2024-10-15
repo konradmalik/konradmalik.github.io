@@ -50,7 +50,7 @@ disableReadOtherPosts = false
 enableSharingButtons = false
 
 [params.footer]
-trademark = true
+trademark = false
 rss = true
 copyright = true
 author = true
